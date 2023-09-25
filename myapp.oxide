@@ -1,0 +1,8 @@
+{
+    "displayName": "MyApp",
+    "description": "Hello World",
+    "bin": "/opt/bin/myapp",
+    "icon": "oxide:myapp-48",
+    "splash": "oxide:splash:myapp-48",
+    "type": "foreground"
+}
