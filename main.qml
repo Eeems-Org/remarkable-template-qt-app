@@ -9,12 +9,7 @@ ApplicationWindow {
     visible: stateController.state !== "loading"
     width: screenGeometry.width
     height: screenGeometry.height
-    title: {
-        if(stateController.state !== "viewing" || !viewer.model){
-            return Qt.application.displayName;
-        }
-        return viewer.model.display.path;
-    }
+    title: Qt.application.displayName
     Component.onCompleted: {
         controller.startup();
     }
@@ -35,11 +30,13 @@ ApplicationWindow {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        if(stateController.state !== "viewing"){
+                        console.log("Back button pressed");
+                        if(stateController.state === "loaded"){
+                            console.log("Quitting");
                             Qt.quit();
                             return;
                         }
-                        viewer.model = undefined;
+                        console.log("Going back to main view");
                         stateController.state = "loaded";
                     }
                 }
