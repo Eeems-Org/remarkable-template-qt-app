@@ -1,0 +1,24 @@
+pkgnames=(my-app)
+pkgdesc="An example application package"
+url=https://example.com
+pkgver=0.0.1-1
+timestamp=2020-10-09T18:15Z
+section=util
+maintainer="My Name <me@example.com>"
+license=MIT
+
+image=qt:v3.1
+source=(src.tar.gz)
+sha256sums=(SKIP)
+
+build() {
+    find . -name "*.pro" -type f -print0 \
+        | xargs -r -0 sed -i 's/linux-oe-g++/linux-arm-remarkable-g++/g'
+    qmake
+    make -j$(nproc)
+    INSTALL_ROOT="dist" make install
+}
+
+package() {
+    cp -ar "${srcdir}/dist/." "${pkgdir}"
+}
