@@ -22,3 +22,30 @@ jobs:
         with:
           name: packages
           path: dist/rm*/*.ipk
+      - name: Save repo
+        uses: actions/upload-artifact@v3
+        with:
+          name: rmall
+          path: dist/rmall
+  test:
+    name: Build and package
+    runs-on: ubuntu-latest
+    needs: [build]
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: rmall
+          path: repo
+      - uses: Eeems-Org/run-in-remarkable-action@v1
+        with:
+          setup: |
+            set -ex
+            echo "src/gz local-rmall file:///src/rmall" > /opt/etc/opkg.conf.d/16-local.conf
+            toltecctl generate-opkg-conf
+            opkg update
+          run: |
+            set -ex
+            opkg install my-app
+            # Add steps here to test app
+            opkg remove my-app
+          path: repo
