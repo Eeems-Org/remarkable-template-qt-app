@@ -49,4 +49,4 @@ jobs:
             opkg install my-app
             # Add steps here to test app
             opkg remove my-app
-          path: repo
+          path: ${{ github.workspace }}/repo
