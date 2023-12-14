@@ -41,7 +41,7 @@ jobs:
         with:
           setup: |
             set -ex
-            echo "src/gz local-rmall file:///opt/tmp/src/rmall" > /opt/etc/opkg.conf.d/16-local.conf
+            echo "src/gz local-rmall file:///opt/tmp/src" > /opt/etc/opkg.conf.d/16-local.conf
           run: |
             set -ex
             toltecctl generate-opkg-conf
@@ -49,4 +49,4 @@ jobs:
             opkg install my-app
             # Add steps here to test app
             opkg remove my-app
-          path: ${{ github.workspace }}/repo
+          path: repo
