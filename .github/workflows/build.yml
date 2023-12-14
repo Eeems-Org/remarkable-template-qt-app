@@ -33,10 +33,9 @@ jobs:
     needs: [build]
     steps:
       - uses: actions/download-artifact@v3
+        id: download
         with:
           name: rmall
-          path: repo
-      - run: tree
       - uses: Eeems-Org/run-in-remarkable-action@v1
         with:
           setup: |
@@ -49,4 +48,4 @@ jobs:
             opkg install my-app
             # Add steps here to test app
             opkg remove my-app
-          path: repo
+          path: ${{ steps.download.outputs.download-path }}
