@@ -36,15 +36,16 @@ jobs:
         with:
           name: rmall
           path: repo
+      - run: tree
       - uses: Eeems-Org/run-in-remarkable-action@v1
         with:
           setup: |
             set -ex
-            echo "src/gz local-rmall file:///src/rmall" > /opt/etc/opkg.conf.d/16-local.conf
-            toltecctl generate-opkg-conf
-            opkg update
+            echo "src/gz local-rmall file:///opt/tmp/src/rmall" > /opt/etc/opkg.conf.d/16-local.conf
           run: |
             set -ex
+            toltecctl generate-opkg-conf
+            opkg update
             opkg install my-app
             # Add steps here to test app
             opkg remove my-app
